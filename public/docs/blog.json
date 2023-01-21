@@ -1,0 +1,1385 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Abdumannon blog app",
+    "description": "This blog app created in Laravel 9 abd MySql.",
+    "contact": {
+      "email": "abdphyr@gmail.com"
+    },
+    "version": "1.0.11"
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:8000/blogapi"
+    },
+    {
+      "url": "https://abdecommerce.000webhostapp.com/blogapi"
+    }
+  ],
+  "tags": [
+    {
+      "name": "messages",
+      "description": "Messages"
+    },
+    {
+      "name": "authentication",
+      "description": "Auhtentication register, login, user, logout, confirmPassword"
+    },
+    {
+      "name": "notifications",
+      "description": "Notifications"
+    },
+    {
+      "name": "categories",
+      "description": "Categories crud"
+    },
+    {
+      "name": "tags",
+      "description": "Tags crud"
+    },
+    {
+      "name": "posts",
+      "description": "Posts crud"
+    },
+    {
+      "name": "comments",
+      "description": "Comments crud"
+    }
+  ],
+  "paths": {
+    "/messages": {
+      "get": {
+        "tags": [
+          "messages"
+        ],
+        "summary": "Fetch messages which was send to admin",
+        "description": "Fetch messages which was send to admin",
+        "operationId": "Fetch messages which was send to admin",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "messages"
+        ],
+        "summary": "Create message which was send to admin",
+        "description": "Create message which was send to admin",
+        "operationId": "Create message which was send to admin",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "name",
+                  "email",
+                  "subject",
+                  "message"
+                ],
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "My name"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "user@gmail.com"
+                  },
+                  "subject": {
+                    "type": "string",
+                    "example": "Message"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "This message is send to admin"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id":{
+                      "type": "integer",
+                      "format": "int64",
+                      "example": 1
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "My name"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "user@gmail.com"
+                    },
+                    "subject": {
+                      "type": "string",
+                      "example": "Message"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "This message is send to admin"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "example": "2023-01-21T15:58:57.000000Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "example": "2023-01-21T15:58:57.000000Z"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications": {
+      "get": {
+        "tags": [
+          "notifications"
+        ],
+        "summary": "Fetch notifications",
+        "description": "Fetch notifications",
+        "operationId": "notifications all",
+        "responses": {
+          "200": {
+            "description": "Notifications",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "notifications": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Comment"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/notifications/{id}/read": {
+      "get": {
+        "tags": [
+          "notifications"
+        ],
+        "summary": "Read notification",
+        "description": "Read notification",
+        "operationId": "readnotification",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Notification id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "3de1d05e-46ee-4576-98ea-7b9b7f54919b"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notification",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "example": "3de1d05e-46ee-4576-98ea-7b9b7f54919b"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/notifications/readall": {
+      "get": {
+        "tags": [
+          "notifications"
+        ],
+        "summary": "Read all notifications",
+        "description": "Read all notifications",
+        "operationId": "notifications all",
+        "responses": {
+          "200": {
+            "description": "Notifications",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Success"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/notifications/{id}": {
+      "delete": {
+        "tags": [
+          "notifications"
+        ],
+        "summary": "Deletete notification",
+        "description": "Deletete notification",
+        "operationId": "Deletetenotification",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Notification id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "3de1d05e-46ee-4576-98ea-7b9b7f54919b"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notification",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Success"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/notifications/deleteall": {
+      "delete": {
+        "tags": [
+          "notifications"
+        ],
+        "summary": "Read all notifications",
+        "description": "Read all notifications",
+        "operationId": "notifications all",
+        "responses": {
+          "200": {
+            "description": "Notifications",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Success"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/comments": {
+      "get": {
+        "tags": [
+          "comments"
+        ],
+        "summary": "Fetch comments belongs to certain post",
+        "description": "Fetch comments belongs to certain post",
+        "operationId": "Comments all",
+        "parameters": [
+          {
+            "name": "post_id",
+            "in": "query",
+            "required": true,
+            "explode": true,
+            "description": "Get comments any post",
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Comments fetched",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "comments": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Comment"
+                      }
+                    }
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Comment"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "comments"
+        ],
+        "summary": "Create comment",
+        "description": "Create comment",
+        "operationId": "Create comment",
+        "requestBody": {
+          "description": "Create a new comment",
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "blog_post_id",
+                  "body"
+                ],
+                "type": "object",
+                "properties": {
+                  "blog_post_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "body": {
+                    "type": "string",
+                    "example": "This is my comment"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Commit created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Comment"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/register": {
+      "post": {
+        "tags": [
+          "authentication"
+        ],
+        "summary": "Register user",
+        "description": "Register user",
+        "operationId": "Register user",
+        "requestBody": {
+          "description": "Create a new user",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterReqDTO"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterReqDTO"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterReqDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful user registered",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponseDTO"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "authentication"
+        ],
+        "summary": "Login user",
+        "description": "Login user",
+        "operationId": "addPet",
+        "requestBody": {
+          "description": "User login",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginReqDTO"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginReqDTO"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginReqDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful user login",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponseDTO"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/confirm-password": {
+      "post": {
+        "tags": [
+          "authentication"
+        ],
+        "summary": "Confirm password current user",
+        "description": "Confirm password current user",
+        "operationId": "Confirm password",
+        "requestBody": {
+          "description": "User login",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "password": {
+                    "type": "string",
+                    "example": "admin9999"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Confirm password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Ok"
+                    }
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "User succesfully logout"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/user": {
+      "get": {
+        "tags": [
+          "authentication"
+        ],
+        "summary": "Get authenticated user",
+        "description": "Get authenticated user",
+        "operationId": "Get user",
+        "responses": {
+          "200": {
+            "description": "User get",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/categories": {
+      "get": {
+        "tags": [
+          "categories"
+        ],
+        "summary": "Get all categories",
+        "description": "Get all categories",
+        "operationId": "Get all categories",
+        "responses": {
+          "200": {
+            "description": "Categories fetched",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Category"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Category"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tags": {
+      "get": {
+        "tags": [
+          "tags"
+        ],
+        "summary": "Tags all",
+        "description": "Tags all",
+        "operationId": "Tags all",
+        "responses": {
+          "200": {
+            "description": "Tags fetched",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Tag"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Tag"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/posts": {
+      "get": {
+        "tags": [
+          "posts"
+        ],
+        "summary": "Posts all",
+        "description": "Posts all",
+        "operationId": "Posts all",
+        "responses": {
+          "200": {
+            "description": "Posts fetched",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedPosts"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedPosts"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "posts"
+        ],
+        "summary": "Create post",
+        "description": "Create post",
+        "operationId": "Create post",
+        "requestBody": {
+          "description": "Create a new post",
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "category_id",
+                  "title",
+                  "short_content",
+                  "content",
+                  "tags"
+                ],
+                "type": "object",
+                "properties": {
+                  "category_id": {
+                    "type": "integer",
+                    "example": 2
+                  },
+                  "title": {
+                    "type": "string",
+                    "example": "Macbook"
+                  },
+                  "short_content": {
+                    "type": "string",
+                    "example": "Short content"
+                  },
+                  "content": {
+                    "type": "string",
+                    "example": "This is content"
+                  },
+                  "tags": {
+                    "type": "string",
+                    "example": "[1, 2]"
+                  },
+                  "image": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Post created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/posts/{id}": {
+      "get": {
+        "tags": [
+          "posts"
+        ],
+        "summary": "Get single post",
+        "description": "Get single post",
+        "operationId": "Get single post",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Post id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Post fetched",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "posts"
+        ],
+        "summary": "Update post",
+        "description": "Update post",
+        "operationId": "Update post",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Post id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "example": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Create a new post",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "Macbook"
+                  },
+                  "short_content": {
+                    "type": "string",
+                    "example": "Short content"
+                  },
+                  "content": {
+                    "type": "string",
+                    "example": "This is content"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Post updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "posts"
+        ],
+        "summary": "Delete single post",
+        "description": "Delete single post",
+        "operationId": "Delete single post",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Post id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Post deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Post"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/posts/latest/{id}": {
+      "get": {
+        "tags": [
+          "posts"
+        ],
+        "summary": "Latest posts",
+        "description": "Latest posts",
+        "operationId": "Latest posts",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Post id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Latest posts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PostsItem"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PostsItem"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Notification": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": "3de1d05e-46ee-4576-98ea-7b9b7f54919b"
+          },
+          "type": {
+            "type": "string",
+            "example": "Notifications type"
+          },
+          "notifiable_type": {
+            "type": "string",
+            "example": "Notifiable type"
+          },
+          "notifiable_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "format": "int64",
+                "example": 1
+              },
+              "title": {
+                "type": "string",
+                "example": "Title"
+              },
+              "created_at": {
+                "type": "string",
+                "example": "2023-01-20:01"
+              }
+            }
+          },
+          "read_at": {
+            "type": "string",
+            "example": null
+          },
+          "created_at": {
+            "type": "string",
+            "example": "2023-01-20:01"
+          },
+          "updated_at": {
+            "type": "string",
+            "example": "2023-01-20:01"
+          }
+        }
+      },
+      "Comment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "body": {
+            "type": "string",
+            "example": "This is my comment"
+          },
+          "created_at": {
+            "type": "string",
+            "example": "2023-1-16"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          }
+        }
+      },
+      "Post": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "user_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "category_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "example": "Macbook"
+          },
+          "short_content": {
+            "type": "string",
+            "example": "Short content"
+          },
+          "content": {
+            "type": "string",
+            "example": "This is content"
+          },
+          "public_photo": {
+            "type": "string",
+            "example": "https://"
+          },
+          "created_at": {
+            "type": "string",
+            "example": "2023-1-16"
+          },
+          "category": {
+            "$ref": "#/components/schemas/Category"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Tag"
+            }
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          }
+        }
+      },
+      "Image": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "url": {
+            "type": "string",
+            "example": "https:://"
+          }
+        }
+      },
+      "PaginatedPosts": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PostsItem"
+            }
+          },
+          "meta": {
+            "type": "object",
+            "properties": {
+              "current_page": {
+                "type": "integer",
+                "example": 1
+              },
+              "from": {
+                "type": "integer",
+                "example": 3
+              },
+              "links": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string",
+                      "example": "http://"
+                    },
+                    "label": {
+                      "type": "string",
+                      "example": "4"
+                    },
+                    "active": {
+                      "type": "boolean",
+                      "example": false
+                    }
+                  }
+                }
+              },
+              "last_page": {
+                "type": "integer",
+                "example": 3
+              },
+              "path": {
+                "type": "string",
+                "example": "http://"
+              },
+              "per_page": {
+                "type": "integer",
+                "example": 2
+              },
+              "to": {
+                "type": "integer",
+                "example": 6
+              },
+              "total": {
+                "type": "integer",
+                "example": 6
+              }
+            }
+          }
+        }
+      },
+      "PostsItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "example": "Macbook"
+          },
+          "short_content": {
+            "type": "string",
+            "example": "Short content"
+          },
+          "public_photo": {
+            "type": "string",
+            "example": "https://"
+          },
+          "created_at": {
+            "type": "string",
+            "example": "2023-1-16"
+          },
+          "category_name": {
+            "type": "string",
+            "example": "Electronics"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Tag"
+            }
+          }
+        }
+      },
+      "Tag": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "tag_name": {
+            "type": "string",
+            "example": "SEO"
+          }
+        }
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Backend"
+          },
+          "post_count": {
+            "type": "integer",
+            "example": 2
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "username": {
+            "type": "string",
+            "example": "Admin"
+          },
+          "email": {
+            "type": "string",
+            "example": "admin@gmail.com"
+          },
+          "avatar": {
+            "type": "string",
+            "example": "https:://"
+          },
+          "info": {
+            "type": "string",
+            "example": "User info"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Role"
+            }
+          }
+        }
+      },
+      "AuthResponseDTO": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "status": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "Operation done successfully"
+          },
+          "token": {
+            "type": "string",
+            "example": "7|kTqmFudoz2rg5Fa5tZaDbxLdsOdd7sGitKrVW4Ln"
+          }
+        }
+      },
+      "Role": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "example": 1
+          },
+          "role_name": {
+            "type": "string",
+            "example": "admin"
+          }
+        }
+      },
+      "LoginReqDTO": {
+        "required": [
+          "email",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "admin@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "admin9999"
+          }
+        }
+      },
+      "RegisterReqDTO": {
+        "required": [
+          "username",
+          "email",
+          "password",
+          "password_confirmation"
+        ],
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "Admin"
+          },
+          "email": {
+            "type": "string",
+            "example": "admin@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "admin9999"
+          },
+          "password_confirmation": {
+            "type": "string",
+            "example": "admin9999"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
